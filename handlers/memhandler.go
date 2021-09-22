@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/kiishi/gobackend/models"
@@ -21,9 +22,18 @@ func NewMemoryHandler(service services.MemService) *MemoryHandler {
 func (m *MemoryHandler) HandleAddRecord(w http.ResponseWriter, r *http.Request) {
 	var record models.MemRecord
 	err := json.NewDecoder(r.Body).Decode(&record)
+
 	if err != nil {
 		logrus.Error(err.Error())
 		util.WriteError(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	_, err = record.Validate()
+
+	if err != nil {
+		logrus.Error(err.Error())
+		util.WriteError(w, http.StatusBadRequest, fmt.Sprintf("Bad Request %s: ", err.Error()))
 		return
 	}
 
