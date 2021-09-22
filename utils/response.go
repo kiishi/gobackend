@@ -13,7 +13,7 @@ func WriteRecordSuccess(w http.ResponseWriter, body interface{}) {
 	var buffer bytes.Buffer
 
 	json.NewEncoder(&buffer).Encode(&models.ResponseMessage{
-		Code:    http.StatusOK,
+		Code:    0,
 		Message: "success",
 		Records: body,
 	})
