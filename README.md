@@ -2,6 +2,9 @@
 
 To run the project, use the below command after creating a .env file that contains the .env.sample format
 
+Command:
+> docker compose up
+
 Base Url: https://getir-go-backend.herokuapp.com
 
 Architecture: Clean Architechture
