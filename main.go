@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/rs/cors"
 	"github.com/urfave/negroni"
 )
 
@@ -13,11 +14,13 @@ func main() {
 		fmt.Fprintln(rw, "ok")
 	})
 
+	BootStrapValidator()
 	BootstrapHandlers()
 
 	n := negroni.New()
 	n.Use(negroni.NewLogger())
 	n.Use(negroni.NewRecovery())
+	n.Use(cors.Default())
 	n.UseHandler(http.DefaultServeMux)
 
 	log.Println("Starting server")

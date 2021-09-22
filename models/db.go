@@ -1,12 +1,19 @@
 package models
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"github.com/asaskevich/govalidator"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type GetRecordsRequest struct {
-	StartDate string `json:"startDate"`
-	EndDate   string `json:"endDate"`
-	MinCount  uint   `json:"minCount"`
-	MaxCount  uint   `json:"maxCount"`
+	StartDate string `json:"startDate" valid:"contextDate~startDate should be YYYY-MM-DD"`
+	EndDate   string `json:"endDate" valid:"contextDate~endDate should be YYYY-MM-DD"`
+	MinCount  uint   `json:"minCount" valid:"int"`
+	MaxCount  uint   `json:"maxCount" valid:"int"`
+}
+
+func (g *GetRecordsRequest) Validate() (bool, error) {
+	return govalidator.ValidateStruct(g)
 }
 
 type AggregatedRecord struct {

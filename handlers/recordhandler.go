@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/kiishi/gobackend/models"
@@ -28,6 +29,14 @@ func (rh *RecordHandler) HandleGetRecords(w http.ResponseWriter, r *http.Request
 	if err != nil {
 		logrus.Error(err.Error())
 		util.WriteError(w, http.StatusBadRequest, "Bad Request")
+		return
+	}
+
+	_, err = request.Validate()
+
+	if err != nil {
+		logrus.Error(err.Error())
+		util.WriteError(w, http.StatusBadRequest, fmt.Sprintf("Bad Request %s: ", err.Error()))
 		return
 	}
 
