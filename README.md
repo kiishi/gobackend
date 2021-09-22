@@ -2,8 +2,10 @@
 
 To run the project, use the below command after creating a .env file that contains the .env.sample format
 
-## Endpoints
+Base Url: https://getir-go-backend.herokuapp.com
 
+Architecture: Clean Architechture
+## Endpoints
 ### InMemory
 
 - Create In Memory Record
